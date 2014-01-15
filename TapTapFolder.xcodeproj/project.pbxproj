@@ -1,0 +1,354 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		FE272BDD18869223006D4107 /* DebianPackage */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = FE272BE018869223006D4107 /* Build configuration list for PBXAggregateTarget "DebianPackage" */;
+			buildPhases = (
+				FE272BE11886922C006D4107 /* ShellScript */,
+			);
+			dependencies = (
+				FE272BE318869231006D4107 /* PBXTargetDependency */,
+			);
+			name = DebianPackage;
+			productName = DebianPackage;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		FE89E01917D7577400402047 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE89E01817D7577400402047 /* Foundation.framework */; };
+		FE89E02317D7577500402047 /* TapTapFolder.mm in Sources */ = {isa = PBXBuildFile; fileRef = FE89E02217D7577500402047 /* TapTapFolder.mm */; };
+		FE89E02E17D767E800402047 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE89E02D17D767E800402047 /* UIKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FE272BE218869231006D4107 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FE89E00C17D7577400402047 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FE89E01417D7577400402047;
+			remoteInfo = TapTapFolder;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FE89E01517D7577400402047 /* TapTapFolder.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TapTapFolder.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE89E01817D7577400402047 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		FE89E02217D7577500402047 /* TapTapFolder.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TapTapFolder.mm; sourceTree = "<group>"; };
+		FE89E02D17D767E800402047 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		FEAD866C17D8A73F00EF1C83 /* Package */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Package; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FE89E01117D7577400402047 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE89E02E17D767E800402047 /* UIKit.framework in Frameworks */,
+				FE89E01917D7577400402047 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FE89E00B17D7577400402047 = {
+			isa = PBXGroup;
+			children = (
+				FE89E01A17D7577400402047 /* TapTapFolder */,
+				FE89E01717D7577400402047 /* Frameworks */,
+				FEAD866C17D8A73F00EF1C83 /* Package */,
+				FE89E01617D7577400402047 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FE89E01617D7577400402047 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FE89E01517D7577400402047 /* TapTapFolder.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FE89E01717D7577400402047 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FE89E02D17D767E800402047 /* UIKit.framework */,
+				FE89E01817D7577400402047 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FE89E01A17D7577400402047 /* TapTapFolder */ = {
+			isa = PBXGroup;
+			children = (
+				FE89E02217D7577500402047 /* TapTapFolder.mm */,
+			);
+			path = TapTapFolder;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		FE89E01217D7577400402047 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		FE89E01417D7577400402047 /* TapTapFolder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FE89E02A17D7577500402047 /* Build configuration list for PBXNativeTarget "TapTapFolder" */;
+			buildPhases = (
+				FE89E01017D7577400402047 /* Sources */,
+				FE89E01117D7577400402047 /* Frameworks */,
+				FE89E01217D7577400402047 /* Headers */,
+				FE89E01317D7577400402047 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TapTapFolder;
+			productName = TapTapFolder;
+			productReference = FE89E01517D7577400402047 /* TapTapFolder.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FE89E00C17D7577400402047 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = Qusic;
+			};
+			buildConfigurationList = FE89E00F17D7577400402047 /* Build configuration list for PBXProject "TapTapFolder" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FE89E00B17D7577400402047;
+			productRefGroup = FE89E01617D7577400402047 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FE89E01417D7577400402047 /* TapTapFolder */,
+				FE272BDD18869223006D4107 /* DebianPackage */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FE272BE11886922C006D4107 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=/opt/local/bin:/opt/local/sbin:$PATH\nxattr -rc $PROJECT_DIR/Package\nfind $PROJECT_DIR/Package -name \".*\" -type f -delete\ndpkg-deb -b $PROJECT_DIR/Package $PROJECT_DIR/me.qusic.taptapfolder.deb";
+		};
+		FE89E01317D7577400402047 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/opt/iOSOpenDev/bin/iosod sign $BUILT_PRODUCTS_DIR/$EXECUTABLE_PATH\ncp -f $BUILT_PRODUCTS_DIR/$EXECUTABLE_PATH $PROJECT_DIR/Package/$INSTALL_PATH/$EXECUTABLE_PATH";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FE89E01017D7577400402047 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE89E02317D7577500402047 /* TapTapFolder.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FE272BE318869231006D4107 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FE89E01417D7577400402047 /* TapTapFolder */;
+			targetProxy = FE272BE218869231006D4107 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		FE272BDE18869223006D4107 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FE272BDF18869223006D4107 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		FE89E02817D7577500402047 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(iOSOpenDevPath)/frameworks/**",
+					"$(SDKROOT)/System/Library/PrivateFrameworks",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(iOSOpenDevPath)/include/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "$(iOSOpenDevPath)/lib/**";
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = NO;
+				VALID_ARCHS = "armv7 armv7s arm64";
+				iOSOpenDevPath = /opt/iOSOpenDev;
+			};
+			name = Debug;
+		};
+		FE89E02917D7577500402047 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(iOSOpenDevPath)/frameworks/**",
+					"$(SDKROOT)/System/Library/PrivateFrameworks",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(iOSOpenDevPath)/include/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "$(iOSOpenDevPath)/lib/**";
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s arm64";
+				iOSOpenDevPath = /opt/iOSOpenDev;
+			};
+			name = Release;
+		};
+		FE89E02B17D7577500402047 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_STYLE = all;
+				iOSOpenDevBuildPackageOnAnyBuild = NO;
+				iOSOpenDevCopyOnBuild = NO;
+				iOSOpenDevDevice = "";
+				iOSOpenDevInstallOnAnyBuild = NO;
+				iOSOpenDevInstallOnProfiling = YES;
+				iOSOpenDevRespringOnInstall = YES;
+				iOSOpenDevUsePackageVersionPList = YES;
+			};
+			name = Debug;
+		};
+		FE89E02C17D7577500402047 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_STYLE = all;
+				iOSOpenDevBuildPackageOnAnyBuild = NO;
+				iOSOpenDevCopyOnBuild = NO;
+				iOSOpenDevDevice = "";
+				iOSOpenDevInstallOnAnyBuild = NO;
+				iOSOpenDevInstallOnProfiling = YES;
+				iOSOpenDevRespringOnInstall = YES;
+				iOSOpenDevUsePackageVersionPList = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FE272BE018869223006D4107 /* Build configuration list for PBXAggregateTarget "DebianPackage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FE272BDE18869223006D4107 /* Debug */,
+				FE272BDF18869223006D4107 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		FE89E00F17D7577400402047 /* Build configuration list for PBXProject "TapTapFolder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FE89E02817D7577500402047 /* Debug */,
+				FE89E02917D7577500402047 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FE89E02A17D7577500402047 /* Build configuration list for PBXNativeTarget "TapTapFolder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FE89E02B17D7577500402047 /* Debug */,
+				FE89E02C17D7577500402047 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FE89E00C17D7577400402047 /* Project object */;
+}

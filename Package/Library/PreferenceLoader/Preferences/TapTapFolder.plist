@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>title</key>
+	<string>TapTapFolder</string>
+	<key>entry</key>
+	<dict>
+		<key>cell</key>
+		<string>PSLinkCell</string>
+		<key>icon</key>
+		<string>TapTapFolder.png</string>
+		<key>label</key>
+		<string>TapTapFolder</string>
+	</dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>When enabled, single tap to open folder while double tap to open the first app.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>defaults</key>
+			<string>me.qusic.taptapfolder</string>
+			<key>key</key>
+			<string>ReversedBehavior</string>
+			<key>label</key>
+			<string>Reversed Behavior</string>
+			<key>default</key>
+			<false/>
+			<key>PostNotification</key>
+			<string>me.qusic.taptapfolder.preferencesChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>When enabled, folder icons won&apos;t be modified. Respring is required for this change to take effect.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>defaults</key>
+			<string>me.qusic.taptapfolder</string>
+			<key>key</key>
+			<string>KeepFolderPreview</string>
+			<key>label</key>
+			<string>Keep Folder Preview</string>
+			<key>default</key>
+			<false/>
+			<key>PostNotification</key>
+			<string>me.qusic.taptapfolder.preferencesChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>Double Tap Timeout</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>defaults</key>
+			<string>me.qusic.taptapfolder</string>
+			<key>key</key>
+			<string>DoubleTapTimeout</string>
+			<key>min</key>
+			<real>0.1</real>
+			<key>max</key>
+			<real>1</real>
+			<key>default</key>
+			<real>0.25</real>
+			<key>PostNotification</key>
+			<string>me.qusic.taptapfolder.preferencesChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>TapTapFolder © 2014 Qusic
+Twitter : @QusicS</string>
+		</dict>
+	</array>
+</dict>
+</plist>
