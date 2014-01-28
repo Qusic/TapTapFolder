@@ -1,0 +1,14 @@
+Package: me.qusic.taptapfolder
+Version: 0.3
+Section: Tweaks
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Depends: firmware (>= 4.0), mobilesubstrate (>= 0.9.5000), preferenceloader (>= 2.2.2)
+Architecture: iphoneos-arm
+Name: TapTapFolder
+Description: Single tap folder to open first app
+Sponsor: thebigboss.org <http://thebigboss.org>
+Author: Qusic <QusicS@Me.com>
+Tag: purpose::extension
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=taptapfolderDp
+dev: qusic
+homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=taptapfolderDp

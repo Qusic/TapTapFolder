@@ -1,22 +1,10 @@
-//
-//  TapTapFolder.mm
-//  TapTapFolder
-//
-//  Created by Qusic on 9/4/13.
-//  Copyright (c) 2013 Qusic. All rights reserved.
-//
-
-// TODO: Support for Nested Folders in iOS 7.
-
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "CaptainHook/CaptainHook.h"
-
-#ifndef kCFCoreFoundationVersionNumber_iOS_7_0
-#define kCFCoreFoundationVersionNumber_iOS_7_0 847.20
-#endif
+#import <CaptainHook.h>
 
 #define iOS7() (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_7_0)
+
+// TODO: Support for Nested Folders in iOS 7.
 
 @interface SBIcon : NSObject
 - (void)launch; // iOS 6
