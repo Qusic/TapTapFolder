@@ -3,6 +3,8 @@
 #import <CaptainHook.h>
 
 #define iOS7() (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_7_0)
+#define iconSize() ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? 45 : 54)
+#define iconMargin() ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? 3 : 6)
 
 // TODO: Support for Nested Folders in iOS 7.
 
@@ -106,9 +108,9 @@ CHOptimizedClassMethod(2, self, CGRect, SBIconGridImage, rectAtIndex, NSUInteger
         return CHSuper(2, SBIconGridImage, rectAtIndex, index, maxCount, count);
     } else {
         if (index == 0) {
-            return CGRectMake(0, 0, 45, 45); // TODO: This size is not suitable for iPad. I'm just too lazy to fix it. :P
+            return CGRectMake(0, 0, iconSize(), iconSize());
         } else {
-            return CGRectMake(0, 48, 0, 0);
+            return CGRectMake(0, iconSize() + iconMargin(), 0, 0);
         }
     }
 }
@@ -118,9 +120,9 @@ CHOptimizedClassMethod(3, self, CGRect, SBIconGridImage, rectAtIndex, NSUInteger
         return CHSuper(3, SBIconGridImage, rectAtIndex, index, forImage, image, maxCount, count);
     } else {
         if (index == 0) {
-            return CGRectMake(0, 0, 45, 45); // TODO: This size is not suitable for iPad. I'm just too lazy to fix it. :P
+            return CGRectMake(0, 0, iconSize(), iconSize());
         } else {
-            return CGRectMake(0, 48, 0, 0);
+            return CGRectMake(0, iconSize() + iconMargin(), 0, 0);
         }
     }
 }

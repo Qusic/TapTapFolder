@@ -1,5 +1,6 @@
 TWEAK_NAME = TapTapFolder
 TapTapFolder_FILES = Tweak.mm
+TapTapFolder_FRAMEWORKS = UIKit
 
 export TARGET=iphone:clang
 export ARCHS = armv7 armv7s arm64
