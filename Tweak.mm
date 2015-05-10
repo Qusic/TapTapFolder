@@ -110,7 +110,7 @@ CHOptimizedClassMethod(2, self, CGRect, SBIconGridImage, rectAtIndex, NSUInteger
         if (index == 0) {
             return CGRectMake(0, 0, iconSize(), iconSize());
         } else {
-            return CGRectMake(0, iconSize() + iconMargin(), 0, 0);
+            return CGRectMake(iconSize() / 2, iconSize() + iconMargin(), 0, 0);
         }
     }
 }
@@ -122,7 +122,7 @@ CHOptimizedClassMethod(3, self, CGRect, SBIconGridImage, rectAtIndex, NSUInteger
         if (index == 0) {
             return CGRectMake(0, 0, iconSize(), iconSize());
         } else {
-            return CGRectMake(0, iconSize() + iconMargin(), 0, 0);
+            return CGRectMake(iconSize() / 2, iconSize() + iconMargin(), 0, 0);
         }
     }
 }
