@@ -63,7 +63,10 @@ CHOptimizedMethod(1, self, void, SBIconController, iconTapped, SBIconView *, ico
                 if (reversedBehavior) {
                     SBIcon *firstIcon = [((SBFolderIconView *)iconView).folderIcon.folder iconAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
                     if (iOS7()) {
-                        [firstIcon launchFromLocation:0];
+                        if([firstIcon respondsToSelector:@selector(launchFromLocation:context:)])
+                            [firstIcon launchFromLocation:0 context:nil];
+                        else
+                            [firstIcon launchFromLocation:0];
                         iconView.highlighted = NO;
                     } else {
                         [firstIcon launch];
@@ -88,7 +91,10 @@ CHOptimizedMethod(1, self, void, SBIconController, iconTapped, SBIconView *, ico
                 } else {
                     SBIcon *firstIcon = [((SBFolderIconView *)iconView).folderIcon.folder iconAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
                     if (iOS7()) {
-                        [firstIcon launchFromLocation:0];
+                        if([firstIcon respondsToSelector:@selector(launchFromLocation:context:)])
+                            [firstIcon launchFromLocation:0 context:nil];
+                        else
+                            [firstIcon launchFromLocation:0];
                         iconView.highlighted = NO;
                     } else {
                         [firstIcon launch];
