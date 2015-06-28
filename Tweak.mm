@@ -10,7 +10,8 @@
 
 @interface SBIcon : NSObject
 - (void)launch; // iOS 6
-- (void)launchFromLocation:(NSInteger)location; //iOS 7
+- (void)launchFromLocation:(NSInteger)location; //iOS 7 & 8
+- (void)launchFromLocation:(NSInteger)location context:(id)context; //iOS 8.3
 - (BOOL)isFolderIcon;
 @end
 
