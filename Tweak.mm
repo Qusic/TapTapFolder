@@ -10,7 +10,8 @@
 
 @interface SBIcon : NSObject
 - (void)launch; // iOS 6
-- (void)launchFromLocation:(NSInteger)location; //iOS 7
+- (void)launchFromLocation:(NSInteger)location; //iOS 7 & 8
+- (void)launchFromLocation:(NSInteger)location context:(id)context; //iOS 8.3
 - (BOOL)isFolderIcon;
 @end
 
@@ -63,7 +64,10 @@ CHOptimizedMethod(1, self, void, SBIconController, iconTapped, SBIconView *, ico
                 if (reversedBehavior) {
                     SBIcon *firstIcon = [((SBFolderIconView *)iconView).folderIcon.folder iconAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
                     if (iOS7()) {
-                        [firstIcon launchFromLocation:0];
+                        if([firstIcon respondsToSelector:@selector(launchFromLocation:context:)])
+                            [firstIcon launchFromLocation:0 context:nil];
+                        else
+                            [firstIcon launchFromLocation:0];
                         iconView.highlighted = NO;
                     } else {
                         [firstIcon launch];
@@ -88,7 +92,10 @@ CHOptimizedMethod(1, self, void, SBIconController, iconTapped, SBIconView *, ico
                 } else {
                     SBIcon *firstIcon = [((SBFolderIconView *)iconView).folderIcon.folder iconAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
                     if (iOS7()) {
-                        [firstIcon launchFromLocation:0];
+                        if([firstIcon respondsToSelector:@selector(launchFromLocation:context:)])
+                            [firstIcon launchFromLocation:0 context:nil];
+                        else
+                            [firstIcon launchFromLocation:0];
                         iconView.highlighted = NO;
                     } else {
                         [firstIcon launch];
