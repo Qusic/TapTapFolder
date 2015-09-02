@@ -1,5 +1,5 @@
 TWEAK_NAME = TapTapFolder
-TapTapFolder_FILES = Tweak.mm
+TapTapFolder_FILES = Tweak.mm FolderBackgroundBeGone.xm
 TapTapFolder_FRAMEWORKS = UIKit
 
 export TARGET=iphone:clang
