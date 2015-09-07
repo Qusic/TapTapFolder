@@ -130,7 +130,7 @@ CHOptimizedClassMethod(3, self, CGRect, SBIconGridImage, rectAtIndex, NSUInteger
 }
 
 CHConstructor {
-	@autoreleasepool {
+    @autoreleasepool {
         preferences = [[NSUserDefaults alloc]initWithSuiteName:kIdentifier];
         [preferences registerDefaults:@{
             kReversedBehaviorKey: @YES,
@@ -145,5 +145,5 @@ CHConstructor {
         } else {
             CHHook(3, SBIconGridImage, rectAtIndex, forImage, maxCount);
         }
-	}
+    }
 }
