@@ -7,6 +7,7 @@
 - (void)launchFromLocation:(NSInteger)location; //iOS 7 & 8
 - (void)launchFromLocation:(NSInteger)location context:(id)context; //iOS 8.3
 - (BOOL)isFolderIcon;
+- (BOOL)isNewsstandIcon;
 @end
 
 @interface SBFolder : NSObject
@@ -90,7 +91,7 @@ CHOptimizedMethod(1, self, void, SBIconController, iconTapped, SBIconView *, ico
         }
     };
 
-    if (!self.hasOpenFolder && iconView.icon.isFolderIcon) {
+    if (!self.hasOpenFolder && iconView.icon.isFolderIcon && !iconView.icon.isNewsstandIcon) {
         NSDate *nowTime = [NSDate date];
         if (iconView == tappedIcon) {
             if ([nowTime timeIntervalSinceDate:lastTappedTime] < [preferences floatForKey:kDoubleTapTimeoutKey]) {
