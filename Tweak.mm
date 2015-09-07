@@ -2,12 +2,6 @@
 #import <UIKit/UIKit.h>
 #import <CaptainHook.h>
 
-#define iOS7() (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_7_0)
-#define iconSize() ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? 45 : 54)
-#define iconMargin() ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? 3 : 6)
-
-// TODO: Support for Nested Folders in iOS 7.
-
 @interface SBIcon : NSObject
 - (void)launch; // iOS 6
 - (void)launchFromLocation:(NSInteger)location; //iOS 7 & 8
@@ -37,70 +31,84 @@
 - (BOOL)hasOpenFolder;
 @end
 
+static NSString * const kIdentifier = @"me.qusic.taptapfolder";
+static NSString * const kReversedBehaviorKey = @"ReversedBehavior";
+static NSString * const kKeepFolderPreviewKey = @"KeepFolderPreview";
+static NSString * const kDoubleTapTimeoutKey = @"DoubleTapTimeout";
+
+static NSUserDefaults *preferences;
 static SBIconView *tappedIcon;
 static NSDate *lastTappedTime;
 static BOOL doubleTapRecognized;
 
-static BOOL reversedBehavior;
-static BOOL keepFolderPreview;
-static float doubleTapTimeout;
+static BOOL iOS7(void) {
+    return kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_7_0;
+}
 
-static void preferencesChangedCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
-{
-	NSDictionary *preferences = [NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/me.qusic.taptapfolder.plist"];
-    reversedBehavior = [preferences[@"ReversedBehavior"]boolValue];
-    keepFolderPreview = [preferences[@"KeepFolderPreview"]boolValue];
-    doubleTapTimeout = [preferences[@"DoubleTapTimeout"]floatValue] ? : 0.25;
+static CGRect iconFrameForGridIndex(NSUInteger index) {
+    CGFloat iconSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 45 : 54;
+    CGFloat iconMargin = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 3 : 6;
+    if (index == 0) {
+        return CGRectMake(0, 0, iconSize, iconSize);
+    } else {
+        return CGRectMake(iconSize / 2, iconSize + iconMargin, 0, 0);
+    }
 }
 
 CHDeclareClass(SBIconController);
-CHOptimizedMethod(1, self, void, SBIconController, iconTapped, SBIconView *, iconView)
-{
+CHDeclareClass(SBIconGridImage)
+
+CHOptimizedMethod(1, self, void, SBIconController, iconTapped, SBIconView *, iconView) {
+    void (^launchFirstApp)(void) = ^(void) {
+        SBIcon *firstIcon = [((SBFolderIconView *)iconView).folderIcon.folder iconAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        if (iOS7()) {
+            if([firstIcon respondsToSelector:@selector(launchFromLocation:context:)]) {
+                [firstIcon launchFromLocation:0 context:nil];
+            } else {
+                [firstIcon launchFromLocation:0];
+            }
+            iconView.highlighted = NO;
+        } else {
+            [firstIcon launch];
+        }
+    };
+    void (^openFolder)(void) = ^(void) {
+        CHSuper(1, SBIconController, iconTapped, iconView);
+    };
+    void (^singleTapAction)(void) = ^(void) {
+        if ([preferences boolForKey:kReversedBehaviorKey]) {
+            openFolder();
+        } else {
+            launchFirstApp();
+        }
+    };
+    void (^doubleTapAction)(void) = ^(void) {
+        if ([preferences boolForKey:kReversedBehaviorKey]) {
+            launchFirstApp();
+        } else {
+            openFolder();
+        }
+    };
+
     if (!self.hasOpenFolder && iconView.icon.isFolderIcon) {
         NSDate *nowTime = [NSDate date];
         if (iconView == tappedIcon) {
-            if ([nowTime timeIntervalSinceDate:lastTappedTime] < doubleTapTimeout) {
+            if ([nowTime timeIntervalSinceDate:lastTappedTime] < [preferences floatForKey:kDoubleTapTimeoutKey]) {
                 doubleTapRecognized = YES;
-                if (reversedBehavior) {
-                    SBIcon *firstIcon = [((SBFolderIconView *)iconView).folderIcon.folder iconAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-                    if (iOS7()) {
-                        if([firstIcon respondsToSelector:@selector(launchFromLocation:context:)])
-                            [firstIcon launchFromLocation:0 context:nil];
-                        else
-                            [firstIcon launchFromLocation:0];
-                        iconView.highlighted = NO;
-                    } else {
-                        [firstIcon launch];
-                    }
-                } else {
-                    CHSuper(1, SBIconController, iconTapped, iconView);
-                }
+                doubleTapAction();
                 return;
             }
         } else {
-            if (iOS7() && tappedIcon != nil) {
+            if (iOS7()) {
                 tappedIcon.highlighted = NO;
             }
         }
         tappedIcon = iconView;
         lastTappedTime = nowTime;
         doubleTapRecognized = NO;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(doubleTapTimeout * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([preferences floatForKey:kDoubleTapTimeoutKey] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
             if (!doubleTapRecognized && iconView == tappedIcon) {
-                if (reversedBehavior) {
-                    CHSuper(1, SBIconController, iconTapped, iconView);
-                } else {
-                    SBIcon *firstIcon = [((SBFolderIconView *)iconView).folderIcon.folder iconAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-                    if (iOS7()) {
-                        if([firstIcon respondsToSelector:@selector(launchFromLocation:context:)])
-                            [firstIcon launchFromLocation:0 context:nil];
-                        else
-                            [firstIcon launchFromLocation:0];
-                        iconView.highlighted = NO;
-                    } else {
-                        [firstIcon launch];
-                    }
-                }
+                singleTapAction();
             }
         });
     } else {
@@ -108,40 +116,29 @@ CHOptimizedMethod(1, self, void, SBIconController, iconTapped, SBIconView *, ico
     }
 }
 
-CHDeclareClass(SBIconGridImage)
-CHOptimizedClassMethod(2, self, CGRect, SBIconGridImage, rectAtIndex, NSUInteger, index, maxCount, NSUInteger, count)
-{
-    if (keepFolderPreview) {
-        return CHSuper(2, SBIconGridImage, rectAtIndex, index, maxCount, count);
-    } else {
-        if (index == 0) {
-            return CGRectMake(0, 0, iconSize(), iconSize());
-        } else {
-            return CGRectMake(iconSize() / 2, iconSize() + iconMargin(), 0, 0);
-        }
-    }
-}
-CHOptimizedClassMethod(3, self, CGRect, SBIconGridImage, rectAtIndex, NSUInteger, index, forImage, id, image, maxCount, NSUInteger, count)
-{
-    if (keepFolderPreview) {
-        return CHSuper(3, SBIconGridImage, rectAtIndex, index, forImage, image, maxCount, count);
-    } else {
-        if (index == 0) {
-            return CGRectMake(0, 0, iconSize(), iconSize());
-        } else {
-            return CGRectMake(iconSize() / 2, iconSize() + iconMargin(), 0, 0);
-        }
-    }
+CHOptimizedClassMethod(2, self, CGRect, SBIconGridImage, rectAtIndex, NSUInteger, index, maxCount, NSUInteger, count) {
+    return [preferences boolForKey:kKeepFolderPreviewKey]
+    ? CHSuper(2, SBIconGridImage, rectAtIndex, index, maxCount, count)
+    : iconFrameForGridIndex(index);
 }
 
-CHConstructor
-{
+CHOptimizedClassMethod(3, self, CGRect, SBIconGridImage, rectAtIndex, NSUInteger, index, forImage, id, image, maxCount, NSUInteger, count) {
+    return [preferences boolForKey:kKeepFolderPreviewKey]
+    ? CHSuper(3, SBIconGridImage, rectAtIndex, index, forImage, image, maxCount, count)
+    : iconFrameForGridIndex(index);
+}
+
+CHConstructor {
 	@autoreleasepool {
-        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, preferencesChangedCallback, CFSTR("me.qusic.taptapfolder.preferencesChanged"), NULL, CFNotificationSuspensionBehaviorCoalesce);
-        preferencesChangedCallback(NULL, NULL, NULL, NULL, NULL);
+        preferences = [[NSUserDefaults alloc]initWithSuiteName:kIdentifier];
+        [preferences registerDefaults:@{
+            kReversedBehaviorKey: @YES,
+            kKeepFolderPreviewKey: @YES,
+            kDoubleTapTimeoutKey: @0.2
+        }];
         CHLoadLateClass(SBIconController);
-        CHHook(1, SBIconController, iconTapped);
         CHLoadLateClass(SBIconGridImage);
+        CHHook(1, SBIconController, iconTapped);
         if (iOS7()) {
             CHHook(2, SBIconGridImage, rectAtIndex, maxCount);
         } else {
