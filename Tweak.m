@@ -92,7 +92,7 @@ CHOptimizedMethod(1, self, void, SBIconController, iconTapped, SBIconView *, ico
         }
     };
 
-    if (!self.isEditing && !self.hasOpenFolder && iconView.icon.isFolderIcon && !iconView.icon.isNewsstandIcon) {
+    if (!self.isEditing && !self.hasOpenFolder && iconView.icon.isFolderIcon && !([iconView.icon respondsToSelector:@selector(isNewsstandIcon)] && iconView.icon.isNewsstandIcon)) {
         NSDate *nowTime = [NSDate date];
         if (iconView == tappedIcon) {
             if ([nowTime timeIntervalSinceDate:lastTappedTime] < [preferences floatForKey:kDoubleTapTimeoutKey]) {
