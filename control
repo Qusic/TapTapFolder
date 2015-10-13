@@ -1,5 +1,5 @@
 Package: me.qusic.taptapfolder
-Version: 0.3.3
+Version: 0.3.4
 Section: Tweaks
 Maintainer: BigBoss <bigboss@thebigboss.org>
 Depends: firmware (>= 4.0), mobilesubstrate (>= 0.9.5000), preferenceloader (>= 2.2.2)
