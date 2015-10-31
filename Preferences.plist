@@ -55,6 +55,24 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>footerText</key>
+			<string>When enabled on supported devices, you can use a deep press to trigger the double tap action.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>defaults</key>
+			<string>me.qusic.taptapfolder</string>
+			<key>key</key>
+			<string>Use3DTouch</string>
+			<key>label</key>
+			<string>Use 3D Touch</string>
+			<key>default</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
 			<string></string>
 		</dict>
 		<dict>
