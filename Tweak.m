@@ -2,6 +2,14 @@
 #import <UIKit/UIKit.h>
 #import <CaptainHook.h>
 
+@interface _UITapticEngine : NSObject
+- (void)actuateFeedback:(NSInteger)count;
+@end
+
+@interface UIDevice (Private)
+- (_UITapticEngine *)_tapticEngine;
+@end
+
 @interface UIInteractionProgress : NSObject
 @property (assign, nonatomic, readonly) CGFloat percentComplete;
 @property (assign, nonatomic, readonly) CGFloat velocity;
@@ -116,6 +124,7 @@ CHOptimizedMethod(1, self, void, SBIconController, _handleShortcutMenuPeek, UILo
         SBIconView *iconView = (SBIconView *)recognizer.view;
         if (isFolderIconView(iconView) && is3DTouchEnabled(iconView)) {
             if (iconView.shortcutMenuPresentProgress.percentComplete >= 1) {
+                [[UIDevice currentDevice]._tapticEngine actuateFeedback:1];
                 doubleTapAction(iconView);
             }
         }
