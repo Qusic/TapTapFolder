@@ -18,8 +18,15 @@ extern void _CFXPreferencesRegisterDefaultValues(CFDictionaryRef defaultValues);
 @property (assign, nonatomic, readonly) CGFloat velocity;
 @end
 
+@interface SBUIForceTouchGestureRecognizer : UILongPressGestureRecognizer
+@property (nonatomic, readonly) double relativeTouchForce;
+@property (nonatomic, readonly) double touchForceVelocity;
+@property (nonatomic, readonly) NSTimeInterval pressDuration;
+@property (nonatomic, readonly) BOOL forceTouchCompleted;
+@end
+
 @interface SBIcon : NSObject
-- (void)launch; // iOS 6
+- (void)launch; // iOS 6 and earlier
 - (void)launchFromLocation:(NSInteger)location; //iOS 7 & 8
 - (void)launchFromLocation:(NSInteger)location context:(id)context; //iOS 8.3
 - (BOOL)isFolderIcon;
@@ -37,7 +44,7 @@ extern void _CFXPreferencesRegisterDefaultValues(CFDictionaryRef defaultValues);
 @interface SBIconView : UIView
 @property(assign) SBIcon *icon;
 @property(assign, getter = isHighlighted) BOOL highlighted;
-@property(retain, nonatomic) UIInteractionProgress *shortcutMenuPresentProgress;
+@property(retain, nonatomic) UIInteractionProgress *shortcutMenuPresentProgress; //iOS 9 and earlier
 @end
 
 @interface SBFolderIconView : SBIconView
@@ -49,7 +56,9 @@ extern void _CFXPreferencesRegisterDefaultValues(CFDictionaryRef defaultValues);
 - (void)iconTapped:(SBIconView *)iconView;
 - (BOOL)isEditing;
 - (BOOL)hasOpenFolder;
-- (void)_handleShortcutMenuPeek:(UILongPressGestureRecognizer *)recognizer;
+- (void)_handleShortcutMenuPeek:(UILongPressGestureRecognizer *)recognizer; //iOS 9 and earlier
+- (void)_handleAppIconForceTouchGestureRecognizer:(SBUIForceTouchGestureRecognizer *)recognizer; //iOS 10
+- (NSArray *)appIconForceTouchController:(id)controller applicationShortcutItemsForGestureRecognizer:(SBUIForceTouchGestureRecognizer *)recognizer; //iOS 10
 @end
 
 static NSString * const kIdentifier = @"me.qusic.taptapfolder";
@@ -61,6 +70,7 @@ static NSString * const kDoubleTapTimeoutKey = @"DoubleTapTimeout";
 static SBIconView *tappedIcon;
 static NSDate *lastTappedTime;
 static BOOL doubleTapRecognized;
+static BOOL forceTouchRecognized;
 
 CHDeclareClass(SBIconController)
 CHDeclareClass(SBIconView)
@@ -148,12 +158,39 @@ CHOptimizedMethod(1, self, void, SBIconController, _handleShortcutMenuPeek, UILo
     if ([recognizer.view isKindOfClass:CHClass(SBIconView)]) {
         SBIconView *iconView = (SBIconView *)recognizer.view;
         if (isFolderIconView(iconView) && is3DTouchEnabled(iconView)) {
-            if (iconView.shortcutMenuPresentProgress.percentComplete >= 1) {
+            if (recognizer.state == UIGestureRecognizerStateBegan) forceTouchRecognized = NO;
+            if (!forceTouchRecognized && iconView.shortcutMenuPresentProgress.percentComplete >= 1) {
                 [[UIDevice currentDevice]._tapticEngine actuateFeedback:1];
                 doubleTapAction(iconView);
+                forceTouchRecognized = YES;
             }
         }
     }
+}
+
+CHOptimizedMethod(1, self, void, SBIconController, _handleAppIconForceTouchGestureRecognizer, SBUIForceTouchGestureRecognizer *, recognizer) {
+    CHSuper(1, SBIconController, _handleAppIconForceTouchGestureRecognizer, recognizer);
+    if ([recognizer.view isKindOfClass:CHClass(SBIconView)]) {
+        SBIconView *iconView = (SBIconView *)recognizer.view;
+        if (isFolderIconView(iconView) && is3DTouchEnabled(iconView)) {
+            if (recognizer.state == UIGestureRecognizerStateBegan) forceTouchRecognized = NO;
+            if (!forceTouchRecognized && recognizer.forceTouchCompleted) {
+                [[UIDevice currentDevice]._tapticEngine actuateFeedback:1];
+                doubleTapAction(iconView);
+                forceTouchRecognized = YES;
+            }
+        }
+    }
+}
+
+CHOptimizedMethod(2, self, NSArray *, SBIconController, appIconForceTouchController, id, controller, applicationShortcutItemsForGestureRecognizer, SBUIForceTouchGestureRecognizer *, recognizer) {
+    if ([recognizer.view isKindOfClass:CHClass(SBIconView)]) {
+        SBIconView *iconView = (SBIconView *)recognizer.view;
+        if (isFolderIconView(iconView) && is3DTouchEnabled(iconView)) {
+            return @[];
+        }
+    }
+    return CHSuper(2, SBIconController, appIconForceTouchController, controller, applicationShortcutItemsForGestureRecognizer, recognizer);
 }
 
 static void launchFirstApp(SBIconView *iconView) {
@@ -211,6 +248,8 @@ CHConstructor {
         CHLoadLateClass(SBIconGridImage);
         CHHook(1, SBIconController, iconTapped);
         CHHook(1, SBIconController, _handleShortcutMenuPeek);
+        CHHook(1, SBIconController, _handleAppIconForceTouchGestureRecognizer);
+        CHHook(2, SBIconController, appIconForceTouchController, applicationShortcutItemsForGestureRecognizer);
         CHHook(2, SBIconGridImage, rectAtIndex, maxCount);
         CHHook(3, SBIconGridImage, rectAtIndex, forImage, maxCount);
     }
